@@ -38,7 +38,7 @@ dependencies {
  
     ...
     
-    implementation "com.klikli_dev:theurgy-kubejs-${minecraft_version}:${theurgy_kubejs_version}"
+    implementation "com.klikli_dev:theurgy_kubejs-${minecraft_version}:${theurgy_kubejs_version}"
     
     ...
     
