@@ -72,11 +72,11 @@ jobs:
         with:
           allowUpdates: true
           draft: false
-          name: theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
+          name: theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}-${{ steps.get_release_type.outputs.result }}
           body: ${{ steps.changelog.outputs.changes }}
           token: ${{ github.token }}
           tag: ${{ github.ref }}
-          artifacts: ./build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
+          artifacts: ./build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
           artifactContentType: application/java-archive
       - name: Commit CHANGELOG.md
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -88,17 +88,17 @@ jobs:
       - name: Upload to Mod Platforms
         uses: Kir-Antipov/mc-publish@v3.3.0
         with:
-          modrinth-id: uOVMgoil
+          modrinth-id: oXj2r26F
           modrinth-token: ${{ secrets.MODRINTH_API_KEY }}
-          curseforge-id: 430636
+          curseforge-id: 963206
           curseforge-token: ${{ secrets.CURSEFORGE_API_KEY }}
 
           files: |
-            build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-            build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}-sources.jar
+            build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
+            build/libs/theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}-sources.jar
 
-          name: theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}.jar
-          version: ${{ steps.get_mc_version.outputs.result }}-${{ steps.get_version.outputs.result }}
+          name: theurgy-kubejs-${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}.jar
+          version: ${{ steps.get_mc_version.outputs.result }}-neoforge-${{ steps.get_version.outputs.result }}
           version-type: ${{ steps.get_release_type.outputs.result }}
           loaders: |
             neoforge

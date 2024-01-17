@@ -47,6 +47,6 @@ side = "BOTH"
 
 [[dependencies.theurgy_kubejs]]
 modId = "kubejs"
-type = "requred"
+type = "required"
 versionRange = "${kubejs_version_range}"
 side = "BOTH"
