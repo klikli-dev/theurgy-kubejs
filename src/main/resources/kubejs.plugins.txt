@@ -1,0 +1,1 @@
+com.klikli_dev.theurgykubejs.kubejs.TheurgyKubeJSPlugin
