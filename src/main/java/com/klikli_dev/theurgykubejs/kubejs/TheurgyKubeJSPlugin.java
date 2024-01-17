@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli-dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgykubejs.kubejs;
 
 import com.klikli_dev.theurgykubejs.AlchemicalSulfurItemType;
