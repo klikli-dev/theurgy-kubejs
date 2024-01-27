@@ -12,6 +12,10 @@ Theurgy KubeJS provides KubeJS integrations for Theurgy.
 
 https://www.curseforge.com/minecraft/mc-mods/theurgy
 
+## Usage
+
+Please view the [Examples](https://github.com/klikli-dev/theurgy-kubejs/tree/HEAD/runs).
+
 ## Maven
 
 See https://cloudsmith.io/~klikli-dev/repos/mods/groups/ for available versions.
