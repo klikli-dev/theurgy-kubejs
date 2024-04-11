@@ -9,9 +9,9 @@
 console.info('Hello, World! (Loaded startup scripts)')
 
 StartupEvents.registry('item', (event) => {
-    event.create('a_test_sulfur', 'theurgy:alchemical_sulfur')
-        .sourceItem('minecraft:rotten_flesh')
-        .sourceName("Rotten Flesh")
-        .sulfurTier("abundant")
-        .sulfurType("misc")
+	event.create('a_test_sulfur', 'theurgy:alchemical_sulfur')
+		.sourceItem('minecraft:rotten_flesh')
+		.sourceName("Rotten Flesh")
+		.sulfurTier("abundant")
+		.sulfurType("misc")
 })
