@@ -6,7 +6,7 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader = "javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion = "${neo_loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion = "${loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license = "${mod_license}"
@@ -33,20 +33,16 @@ authors="${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''${mod_description}'''
 
-[[dependencies.theurgy_kubejs]]
-modId = "neoforge"
-type = "required"
-versionRange = "${neo_version_range}"
-side = "BOTH"
+[[dependencies.occultism_kubejs]]
+modId="theurgy"
+mandatory=true
+versionRange="${theurgy_version_range}"
+ordering = "AFTER"
+side="BOTH"
 
-[[dependencies.theurgy_kubejs]]
-modId = "theurgy"
-type = "required"
-versionRange = "${theurgy_version_range}"
-side = "BOTH"
-
-[[dependencies.theurgy_kubejs]]
+[[dependencies.occultism_kubejs]]
 modId = "kubejs"
-type = "required"
+mandatory = true
 versionRange = "${kubejs_version_range}"
+ordering = "AFTER"
 side = "BOTH"

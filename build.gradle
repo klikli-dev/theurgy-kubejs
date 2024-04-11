@@ -1,10 +1,9 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
-
-apply from: 'https://gist.githubusercontent.com/Technici4n/facbcdf18ce1a556b76e6027180c32ce/raw/059ab3d504a590461746fc6e3065159f4932a960/classremapper.gradle'
 
 if (System.getenv('MOD_VERSION') != null) {
     mod_version = System.getenv('MOD_VERSION')
@@ -12,7 +11,7 @@ if (System.getenv('MOD_VERSION') != null) {
 version = mod_version
 
 base {
-    archivesName = "${mod_id}-${minecraft_version}-neoforge"
+    archivesName = mod_id + "-" + minecraft_version
 }
 
 
@@ -20,31 +19,84 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 java.withSourcesJar()
 
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+minecraft {
 
-if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
-    minecraft.accessTransformers.file file('src/main/resources/META-INF/accesstransformer.cfg')
-}
+    mappings channel: mapping_channel, version: mapping_version
 
-runs {
-    configureEach {
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'debug'
-        jvmArguments.addAll('-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions')
-        modSource project.sourceSets.main
-    }
+    //accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    client {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-        programArgument "--username=Dev"
-    }
+    // Default run configurations.
+    // These can be tweaked, removed, or duplicated as needed.
+    runs {
+        client {
+            workingDirectory project.file('run')
+            args '--username', 'TheurgyKubeJS'
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-//        programArgument '--nogui'
-    }
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
 
-    data {
-        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            //Fix for patchouli mixin crash
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+            // enable using JBR to hotswap MOAR
+            // also ignore the option if someone isnt using JBR
+            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            //Workaround for patchouli mixin crash
+            property 'mixin.env.disableRefMap', 'true'
+
+            // enable using JBR to hotswap MOAR
+            // also ignore the option if someone isnt using JBR
+            jvmArgs '-XX:+AllowEnhancedClassRedefinition', '-XX:+IgnoreUnrecognizedVMOptions'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            //Workaround for patchouli mixin crash
+            property 'mixin.env.disableRefMap', 'true'
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            args '--mod', '${mod_id}', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
@@ -59,55 +111,65 @@ repositories {
         }
     }
     maven {
-        name = "JEI and AlmostUnified"
+        name = "JEI"
         url = 'https://maven.blamejared.com/'
         content {
             includeGroup "mezz.jei"
-            includeGroup "com.almostreliable.mods"
         }
     }
     maven {
-        name = 'GeckoLib'
-        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        name = "Curios Maven"
+        url = "https://maven.theillusivec4.top/"
+        content {
+            includeGroup "top.theillusivec4.curios"
+        }
+    }
+    maven {
+        name = "Geckolib Maven"
+        url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"
         content {
             includeGroup "software.bernie.geckolib"
         }
     }
     maven {
-        name = "Kubejs"
-        url "https://maven.saps.dev/minecraft"
+        name = "SBL Maven"
+        url "https://dl.cloudsmith.io/public/tslat/sbl/maven/"
         content {
-            includeGroup "dev.latvian.mods"
+            includeGroup "net.tslat.smartbrainlib"
         }
     }
     maven {
-        name = "Architectory (for Kubejs)"
-        url "https://maven.architectury.dev/"
+        // Shedaniel's maven (Architectury API)
+        url = "https://maven.architectury.dev"
         content {
             includeGroup "dev.architectury"
         }
     }
+
     maven {
-        url "https://cursemaven.com"
+        // saps.dev Maven (KubeJS and Rhino)
+        url = "https://maven.saps.dev/releases"
         content {
-            includeGroup "curse.maven"
-        }
-    }
-    maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
-        content {
-            includeGroup "maven.modrinth"
+            includeGroup "dev.latvian.mods"
         }
     }
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
+    minecraft "net.minecraftforge:forge:${forge_version}"
 
-    implementation "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
+    implementation fg.deobf("com.klikli_dev:theurgy-${minecraft_version}:${theurgy_version}"){ transitive = false }
+    //Theurgy Transitive Dependencies
+    runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${minecraft_version}:${geckolib_version}")
+    runtimeOnly fg.deobf("com.klikli_dev:modonomicon-${minecraft_version}-forge:${modonomicon_version}")
 
-    implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+    implementation fg.deobf("dev.latvian.mods:kubejs-forge:${kubejs_version}")
+    //KubeJS Transitive Dependencies
+    implementation fg.deobf("dev.latvian.mods:rhino-forge:${rhino_version}")
+    implementation fg.deobf("dev.architectury:architectury-forge:${architectury_version}")
+
+    //JEI for testing
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 }
 
 processResources {
@@ -130,6 +192,8 @@ jar {
         ])
     }
 }
+
+jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
