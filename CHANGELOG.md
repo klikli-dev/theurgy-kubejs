@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.0.0] - 2024-04-11
+### :sparkles: New Features
+- [`df409ae`](https://github.com/klikli-dev/theurgy-kubejs/commit/df409ae162de7f38f2585475b2f01656975191b8) - backport to 1.20.1 *(PR [#3](https://github.com/klikli-dev/theurgy-kubejs/pull/3) by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.0.0] - 2024-01-17
 ### :sparkles: New Features
 - [`363e6c6`](https://github.com/klikli-dev/theurgy-kubejs/commit/363e6c6a4e599298c944f56e814b27dc6bd3749f) - add initial support for alchemical sulfur *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -17,3 +22,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [release/v1.20.4-1.0.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.0.0
+[release/v1.20.1-1.0.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.1-0.0.0...release/v1.20.1-1.0.0
