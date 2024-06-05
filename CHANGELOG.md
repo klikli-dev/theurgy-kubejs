@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.1-1.1.0] - 2024-06-05
+### :sparkles: New Features
+- [`cce790b`](https://github.com/klikli-dev/theurgy-kubejs/commit/cce790b42f1714e084bca7e1b5130b020d5f98ad) - add niter support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.1-1.0.1] - 2024-06-05
 ### :bug: Bug Fixes
 - [`1da4e6f`](https://github.com/klikli-dev/theurgy-kubejs/commit/1da4e6f40df73c36d9c8b3bae868215d367e020f) - build action *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -29,3 +34,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.20.4-1.0.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.0.0
 [release/v1.20.1-1.0.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.1-0.0.0...release/v1.20.1-1.0.0
 [release/v1.20.1-1.0.1]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.1-1.0.0...release/v1.20.1-1.0.1
+[release/v1.20.1-1.1.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.1-1.0.1...release/v1.20.1-1.1.0
