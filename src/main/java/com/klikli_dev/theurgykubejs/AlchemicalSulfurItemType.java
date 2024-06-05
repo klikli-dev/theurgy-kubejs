@@ -26,30 +26,44 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 public class AlchemicalSulfurItemType extends ItemBuilder {
 
     public transient ResourceLocation sourceItem;
+    public transient ResourceLocation jarIcon;
     public transient String sourceName;
     public transient AlchemicalSulfurTier sulfurTier;
     public transient AlchemicalSulfurType sulfurType;
+
+    public transient boolean generateTooltipLangEntry;
+    public transient boolean generateNameLangEntry;
+    public transient boolean provideSulfurInformationAsTooltipParam;
+    public transient boolean provideSulfurInformationAsNameParam;
 
     public AlchemicalSulfurItemType(ResourceLocation rl) {
         super(rl);
 
         this.sourceItem = new ResourceLocation("minecraft", "stone");
+        this.jarIcon = new ResourceLocation("theurgy", "empty_jar_icon");
         this.sourceName = "";
         this.sulfurTier = AlchemicalSulfurTier.ABUNDANT;
         this.sulfurType = AlchemicalSulfurType.MISC;
+        this.generateTooltipLangEntry = true;
+        this.generateNameLangEntry = true;
+        this.provideSulfurInformationAsTooltipParam = true;
+        this.provideSulfurInformationAsNameParam = true;
 
         this.parentModel("minecraft:builtin/entity");
     }
 
     @Override
     public Item createObject() {
-        var item =  new AlchemicalSulfurItem(
+        var item = new AlchemicalSulfurItem(
                 this.createItemProperties(),
-                Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(sourceItem)))
+                Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.sourceItem)))
         )
                 .overrideSourceName(true)
-                .tier(sulfurTier)
-                .type(sulfurType);
+                .autoTooltip(this.provideSulfurInformationAsTooltipParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
+                .autoName(this.provideSulfurInformationAsNameParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
+                .withJarIcon(Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.jarIcon))))
+                .tier(this.sulfurTier)
+                .type(this.sulfurType);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             TooltipHandler.registerTooltipDataProvider(item, AlchemicalSulfurItem::getTooltipData);
@@ -58,28 +72,58 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
         return item;
     }
 
+    @Info("If true, KubeJS will generate a lang file entry for the tooltip of sulfur with default texts.")
+    public ItemBuilder generateTooltipLangEntry(boolean value){
+        this.generateTooltipLangEntry = value;
+        return this;
+    }
+
+    @Info("If true, KubeJS will generate a lang file entry for the name of this sulfur with default texts.")
+    public ItemBuilder generateNameLangEntry(boolean value){
+        this.generateNameLangEntry = value;
+        return this;
+    }
+
+    @Info("If true, the tooltip can access sulfur information as \"%s\" params. Should generally always be true.")
+    public ItemBuilder provideSulfurInformationAsTooltipParam(boolean value){
+        this.provideSulfurInformationAsTooltipParam = value;
+        return this;
+    }
+
+    @Info("If true, the item name can access sulfur information as \"%s\" params. Should generally always be true.")
+    public ItemBuilder provideSulfurInformationAsNameParam(boolean value){
+        this.provideSulfurInformationAsNameParam = value;
+        return this;
+    }
+
+    @Info("Sets the item that will be used as jar icon. This will be rendered as background behind the source item.")
+    public ItemBuilder jarIcon(ResourceLocation id) {
+        this.jarIcon = id;
+        return this;
+    }
+
     @Info("Sets the item the sulfur is made from. This will be used for texts, tooltips and icons.")
     public ItemBuilder sourceItem(ResourceLocation id) {
-        sourceItem = id;
+        this.sourceItem = id;
         return this;
     }
 
     @Info("Sets the name that will be displayed as the source name for this sulfur")
     public ItemBuilder sourceName(String name) {
-        sourceName = name;
+        this.sourceName = name;
         return this;
     }
 
 
     @Info("Sets the Sulfur Tier (ABUNDANT, COMMON, RARE, PRECIOUS).")
     public ItemBuilder sulfurTier(AlchemicalSulfurTier tier) {
-        sulfurTier = tier;
+        this.sulfurTier = tier;
         return this;
     }
 
     @Info("Sets the Sulfur Type (MISC, GEMS, METALS, OTHER_MINERALS).")
     public ItemBuilder sulfurType(AlchemicalSulfurType type) {
-        sulfurType = type;
+        this.sulfurType = type;
         return this;
     }
 
@@ -92,12 +136,16 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
     public void generateLang(LangEventJS lang) {
         super.generateLang(lang);
 
-        lang.add(id.getNamespace(), getBuilderTranslationKey(), "Alchemical Sulfur %s");
-        lang.add(id.getNamespace(), getBuilderTranslationKey() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, this.sourceName);
-        lang.add(id.getNamespace(), getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.SUFFIX, "Alchemical Sulfur crafted from %s %s %s.");
-        lang.add(id.getNamespace(), getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX, "Sulfur represents the \"idea\" or \"soul\" of an object");
-        lang.add(id.getNamespace(), getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX, "Sulfur is the central element used in Spagyrics processes." +
-                "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
+        if (this.generateNameLangEntry) {
+            lang.add(this.id.getNamespace(), this.getBuilderTranslationKey(), "Alchemical Sulfur %s");
+            lang.add(this.id.getNamespace(), this.getBuilderTranslationKey() + TheurgyConstants.I18n.Item.ALCHEMICAL_SULFUR_SOURCE_SUFFIX, this.sourceName);
+        }
+        if (this.generateTooltipLangEntry) {
+            lang.add(this.id.getNamespace(), this.getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.SUFFIX, "Alchemical Sulfur crafted from %s %s %s.");
+            lang.add(this.id.getNamespace(), this.getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.EXTENDED_SUFFIX, "Sulfur represents the \"idea\" or \"soul\" of an object");
+            lang.add(this.id.getNamespace(), this.getBuilderTranslationKey() + TheurgyConstants.I18n.Tooltip.USAGE_SUFFIX, "Sulfur is the central element used in Spagyrics processes." +
+                    "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
+        }
     }
 
 
