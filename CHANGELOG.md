@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.20.4-1.1.0] - 2024-06-05
+### :sparkles: New Features
+- [`f7a2466`](https://github.com/klikli-dev/theurgy-kubejs/commit/f7a246694a7ee21030a5de58ca28a918472f6176) - add niter support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`312cb18`](https://github.com/klikli-dev/theurgy-kubejs/commit/312cb187193b3c0525fa2767a3d434e83313b35e) - add space to gradle project name *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.20.4-1.0.0] - 2024-01-17
 ### :sparkles: New Features
 - [`363e6c6`](https://github.com/klikli-dev/theurgy-kubejs/commit/363e6c6a4e599298c944f56e814b27dc6bd3749f) - add initial support for alchemical sulfur *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -17,3 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 [release/v1.20.4-1.0.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.4-0.0.0...release/v1.20.4-1.0.0
+[release/v1.20.4-1.1.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.20.4-1.0.0...release/v1.20.4-1.1.0
