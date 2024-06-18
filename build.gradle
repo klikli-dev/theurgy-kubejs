@@ -108,7 +108,7 @@ dependencies {
 }
 
 processResources {
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
         expand project.properties
     }
 }
@@ -175,5 +175,13 @@ tasks.withType(JavaCompile).configureEach {
 afterEvaluate {
     tasks.withType(JavaCompile) {
         options.compilerArgs << "-Xmaxerrs" << "2000"
+    }
+}
+
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
 }
