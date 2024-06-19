@@ -31,7 +31,7 @@ public class TheurgyKubeJS {
     }
 
     public static ResourceLocation loc(String path) {
-        return new ResourceLocation(MODID, path);
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 
     public static class Client {

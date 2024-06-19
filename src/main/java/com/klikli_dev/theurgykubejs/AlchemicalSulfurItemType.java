@@ -6,19 +6,19 @@ package com.klikli_dev.theurgykubejs;
 
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurItem;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurTier;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
+import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
-import dev.latvian.mods.kubejs.client.LangEventJS;
 import dev.latvian.mods.kubejs.generator.AssetJsonGenerator;
 import dev.latvian.mods.kubejs.generator.DataJsonGenerator;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
-import dev.latvian.mods.kubejs.util.UtilsJS;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -27,6 +27,7 @@ import net.neoforged.fml.loading.FMLEnvironment;
 public class AlchemicalSulfurItemType extends ItemBuilder {
 
     public transient ResourceLocation sourceItem;
+    public transient ResourceLocation sourceTag;
     public transient ResourceLocation jarIcon;
     public transient String sourceName;
     public transient AlchemicalSulfurTier sulfurTier;
@@ -40,8 +41,8 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
     public AlchemicalSulfurItemType(ResourceLocation rl) {
         super(rl);
 
-        this.sourceItem = new ResourceLocation("minecraft", "stone");
-        this.jarIcon = new ResourceLocation("theurgy", "empty_jar_icon");
+        this.sourceItem = ResourceLocation.fromNamespaceAndPath("minecraft", "stone");
+        this.jarIcon = ResourceLocation.fromNamespaceAndPath("theurgy", "empty_jar_icon");
         this.sourceName = "";
         this.sulfurTier = AlchemicalSulfurTier.ABUNDANT;
         this.sulfurType = AlchemicalSulfurType.MISC;
@@ -53,11 +54,25 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
         this.parentModel("minecraft:builtin/entity");
     }
 
+    protected Item.Properties decorateWithSource(Item.Properties properties) {
+        if (this.sourceItem != null) {
+            properties.component(
+                    DataComponentRegistry.SULFUR_SOURCE_ITEM,
+                    BuiltInRegistries.ITEM.getHolder(this.sourceItem).get()
+            );
+        } else if (this.sourceTag != null) {
+            properties.component(
+                    DataComponentRegistry.SULFUR_SOURCE_TAG,
+                    ItemTags.create(this.sourceTag)
+            );
+        }
+        return properties;
+    }
+
     @Override
     public Item createObject() {
         var item = new AlchemicalSulfurItem(
-                this.createItemProperties(),
-                Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.sourceItem)))
+                decorateWithSource(this.createItemProperties())
         )
                 .overrideSourceName(true)
                 .autoTooltip(this.provideSulfurInformationAsTooltipParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
@@ -74,25 +89,25 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
     }
 
     @Info("If true, KubeJS will generate a lang file entry for the tooltip of sulfur with default texts.")
-    public ItemBuilder generateTooltipLangEntry(boolean value){
+    public ItemBuilder generateTooltipLangEntry(boolean value) {
         this.generateTooltipLangEntry = value;
         return this;
     }
 
     @Info("If true, KubeJS will generate a lang file entry for the name of this sulfur with default texts.")
-    public ItemBuilder generateNameLangEntry(boolean value){
+    public ItemBuilder generateNameLangEntry(boolean value) {
         this.generateNameLangEntry = value;
         return this;
     }
 
     @Info("If true, the tooltip can access sulfur information as \"%s\" params. Should generally always be true.")
-    public ItemBuilder provideSulfurInformationAsTooltipParam(boolean value){
+    public ItemBuilder provideSulfurInformationAsTooltipParam(boolean value) {
         this.provideSulfurInformationAsTooltipParam = value;
         return this;
     }
 
     @Info("If true, the item name can access sulfur information as \"%s\" params. Should generally always be true.")
-    public ItemBuilder provideSulfurInformationAsNameParam(boolean value){
+    public ItemBuilder provideSulfurInformationAsNameParam(boolean value) {
         this.provideSulfurInformationAsNameParam = value;
         return this;
     }
@@ -103,9 +118,15 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
         return this;
     }
 
-    @Info("Sets the item the sulfur is made from. This will be used for texts, tooltips and icons.")
+    @Info("Sets the item the sulfur is made from. This will be used for texts, tooltips and icons. Note: Consider using sourceTag() instead.")
     public ItemBuilder sourceItem(ResourceLocation id) {
         this.sourceItem = id;
+        return this;
+    }
+
+    @Info("Sets the tag the sulfur is made from. This will be used for texts, tooltips and icons.")
+    public ItemBuilder sourceTag(ResourceLocation id) {
+        this.sourceTag = id;
         return this;
     }
 

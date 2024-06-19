@@ -5,8 +5,7 @@
 package com.klikli_dev.theurgykubejs;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.AlchemicalSulfurType;
-import dev.latvian.mods.kubejs.client.LangEventJS;
+import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.resources.ResourceLocation;

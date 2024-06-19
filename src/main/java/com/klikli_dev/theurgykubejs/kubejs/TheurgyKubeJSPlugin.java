@@ -9,7 +9,7 @@ import com.klikli_dev.theurgykubejs.AlchemicalSulfurItemType;
 import dev.latvian.mods.kubejs.KubeJSPlugin;
 import dev.latvian.mods.kubejs.registry.RegistryInfo;
 
-public class TheurgyKubeJSPlugin extends KubeJSPlugin {
+public class TheurgyKubeJSPlugin implements KubeJSPlugin {
 
     @Override
     public void init() {
