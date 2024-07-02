@@ -104,6 +104,9 @@ dependencies {
 
     implementation "com.klikli_dev:theurgy-${minecraft_version}-neoforge:${theurgy_version}"
 
+    //Jei
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+
     implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
 }
 

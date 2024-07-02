@@ -6,6 +6,7 @@ package com.klikli_dev.theurgykubejs;
 
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
+import dev.latvian.mods.kubejs.client.LangKubeEvent;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +16,7 @@ public class AlchemicalNiterItemType extends AlchemicalSulfurItemType {
     public AlchemicalNiterItemType(ResourceLocation rl) {
         super(rl);
 
-        this.jarIcon(new ResourceLocation("theurgy", "empty_ceramic_jar_icon"));
+        this.jarIcon(ResourceLocation.fromNamespaceAndPath("theurgy", "empty_ceramic_jar_icon"));
         this.sulfurType(AlchemicalSulfurType.NITER);
 
         this.provideSulfurInformationAsTooltipParam(true);
@@ -27,7 +28,7 @@ public class AlchemicalNiterItemType extends AlchemicalSulfurItemType {
         return this.sourceItem(id);
     }
 
-    public void generateLang(LangEventJS lang) {
+    public void generateLang(LangKubeEvent lang) {
         super.generateLang(lang);
 
         if (this.generateNameLangEntry) {

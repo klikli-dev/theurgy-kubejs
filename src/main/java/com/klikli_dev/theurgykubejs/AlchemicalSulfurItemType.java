@@ -11,6 +11,7 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
+import dev.latvian.mods.kubejs.client.LangKubeEvent;
 import dev.latvian.mods.kubejs.generator.AssetJsonGenerator;
 import dev.latvian.mods.kubejs.generator.DataJsonGenerator;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
@@ -155,7 +156,9 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
         //TODO: consider providing some default recipes here
     }
 
-    public void generateLang(LangEventJS lang) {
+    public void generateLang(LangKubeEvent lang) {
+        // call super as we still use the display name for the 'upgrade description'
+        // we don't use a custom lang key for that as vanillas format depends on it being an upgrade or trim, and we don't know which it is
         super.generateLang(lang);
 
         if (this.generateNameLangEntry) {
@@ -169,7 +172,6 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
                     "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
         }
     }
-
 
     @Override
     public void generateAssetJsons(AssetJsonGenerator generator) {
