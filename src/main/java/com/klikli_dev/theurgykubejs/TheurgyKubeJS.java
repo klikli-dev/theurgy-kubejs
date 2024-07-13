@@ -9,6 +9,7 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
@@ -22,7 +23,7 @@ public class TheurgyKubeJS {
 
     public static TheurgyKubeJS INSTANCE;
 
-    public TheurgyKubeJS(IEventBus modEventBus) {
+    public TheurgyKubeJS(IEventBus modEventBus, ModContainer modContainer) {
         INSTANCE = this;
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
