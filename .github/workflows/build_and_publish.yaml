@@ -50,7 +50,7 @@ jobs:
       - name: Build
         run: ./gradlew build
         env:
-        MOD_VERSION: ${{ steps.get_version.outputs.result }}
+          MOD_VERSION: ${{ steps.get_version.outputs.result }}
       - name: Update CHANGELOG
         id: changelog
         uses: klikli-dev/changelog-action@main
