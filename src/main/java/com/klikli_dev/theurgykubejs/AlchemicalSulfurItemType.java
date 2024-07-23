@@ -12,8 +12,6 @@ import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import dev.latvian.mods.kubejs.client.LangKubeEvent;
-import dev.latvian.mods.kubejs.generator.AssetJsonGenerator;
-import dev.latvian.mods.kubejs.generator.DataJsonGenerator;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.ChatFormatting;
@@ -150,12 +148,6 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
         return this;
     }
 
-    @Override
-    public void generateDataJsons(DataJsonGenerator generator) {
-        super.generateDataJsons(generator);
-        //TODO: consider providing some default recipes here
-    }
-
     public void generateLang(LangKubeEvent lang) {
         // call super as we still use the display name for the 'upgrade description'
         // we don't use a custom lang key for that as vanillas format depends on it being an upgrade or trim, and we don't know which it is
@@ -172,29 +164,4 @@ public class AlchemicalSulfurItemType extends ItemBuilder {
                     "\n\n" + ChatFormatting.ITALIC + "Hint: Sulfurs crafted from different states of the same material (such as from Ore or Ingots) are interchangeable." + ChatFormatting.RESET);
         }
     }
-
-    @Override
-    public void generateAssetJsons(AssetJsonGenerator generator) {
-        super.generateAssetJsons(generator);
-//        if (modelJson != null) {
-//            generator.json(AssetJsonGenerator.asItemModelLocation(id), modelJson);
-//            return;
-//        }
-//
-//        generator.itemModel(id, m -> {
-//            if (!parentModel.isEmpty()) {
-//                m.parent(parentModel);
-//            } else {
-//                m.parent("minecraft:item/generated");
-//            }
-//
-//            if (textureJson.size() == 0) {
-//                texture(newID("item/", "").toString());
-//            }
-//
-//            m.textures(textureJson);
-//        });
-    }
-
-
 }
