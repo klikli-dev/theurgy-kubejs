@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 klikli_dev
+//
+// SPDX-License-Identifier: MIT
+
 package com.klikli_dev.theurgykubejs;
 
 import com.klikli_dev.theurgy.content.recipe.*;
