@@ -28,6 +28,14 @@ public class TheurgyKubeJSPlugin implements KubeJSPlugin {
     @Override
     public void registerRecipeSchemas(RecipeSchemaRegistry registry) {
         registry.register(RecipeTypeRegistry.CALCINATION.getId(), TheurgyRecipeSchema.CALCINATION);
+        registry.register(RecipeTypeRegistry.LIQUEFACTION.getId(), TheurgyRecipeSchema.LIQUEFACTION);
+        registry.register(RecipeTypeRegistry.DISTILLATION.getId(), TheurgyRecipeSchema.DISTILLATION);
+        registry.register(RecipeTypeRegistry.INCUBATION.getId(), TheurgyRecipeSchema.INCUBATION);
+        registry.register(RecipeTypeRegistry.ACCUMULATION.getId(), TheurgyRecipeSchema.ACCUMULATION);
+        registry.register(RecipeTypeRegistry.CATALYSATION.getId(), TheurgyRecipeSchema.CATALYSATION);
+        registry.register(RecipeTypeRegistry.REFORMATION.getId(), TheurgyRecipeSchema.REFORMATION);
+        registry.register(RecipeTypeRegistry.FERMENTATION.getId(), TheurgyRecipeSchema.FERMENTATION);
+        registry.register(RecipeTypeRegistry.DIGESTION.getId(), TheurgyRecipeSchema.DIGESTION);
     }
 
     @Override
