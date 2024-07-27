@@ -85,6 +85,13 @@ repositories {
         }
     }
     maven {
+        name = "TerraformersMC (emi)"
+        url = "https://maven.terraformersmc.com/"
+        content {
+            includeGroup "dev.emi"
+        }
+    }
+    maven {
         url "https://cursemaven.com"
         content {
             includeGroup "curse.maven"

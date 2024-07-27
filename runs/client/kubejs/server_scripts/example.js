@@ -33,7 +33,7 @@ ServerEvents.recipes((event) => {
     event.recipes.theurgy.incubation(
         RecipeResult.of("#minecraft:swords"), //not a good idea, but just to show tags as output
         'theurgy:mercury_shard',
-        'theurgy:alchemical_salt_crops',
+        'theurgy:alchemical_salt_plant',
         'theurgy:alchemical_sulfur_wheat',
         100
     )

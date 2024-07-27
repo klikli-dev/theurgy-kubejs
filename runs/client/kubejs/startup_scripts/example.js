@@ -12,7 +12,7 @@ StartupEvents.registry('item', (event) => {
     event.create('a_test_sulfur', 'theurgy:alchemical_sulfur')
         .sourceItem('minecraft:rotten_flesh')
         .sourceName("Rotten Flesh")
-        .sulfurTier("abundant")
+        .derivativeTier("abundant")
         .sulfurType("misc")
 })
 
@@ -20,5 +20,5 @@ StartupEvents.registry('item', (event) => {
 	event.create('a_test_niter', 'theurgy:alchemical_niter')
 		.niterIcon('minecraft:spider_eye') //ideally an item with a custom icon should be used here. Theurgy e.g. uses the item "gems_abundant_icon" for the abundant gems niter
 		.sourceName("Monster Parts")
-		.sulfurTier("common")
+		.derivativeTier("common")
 })
