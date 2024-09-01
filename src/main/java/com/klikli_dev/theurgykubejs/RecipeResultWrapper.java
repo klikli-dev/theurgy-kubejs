@@ -8,7 +8,7 @@ import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import dev.latvian.mods.kubejs.KubeJS;
-import dev.latvian.mods.kubejs.bindings.DataComponentWrapper;
+import dev.latvian.mods.kubejs.component.DataComponentWrapper;
 import dev.latvian.mods.kubejs.item.ItemStackJS;
 import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.kubejs.util.RegistryAccessContainer;
