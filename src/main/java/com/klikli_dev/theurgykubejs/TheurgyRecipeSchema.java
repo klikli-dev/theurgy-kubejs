@@ -27,7 +27,7 @@ public interface TheurgyRecipeSchema {
     RecipeKey<Ingredient> MERCURY = IngredientComponent.INGREDIENT.inputKey("mercury");
     RecipeKey<Ingredient> SALT = IngredientComponent.INGREDIENT.inputKey("salt");
     RecipeKey<Ingredient> SULFUR = IngredientComponent.INGREDIENT.inputKey("sulfur");
-    RecipeKey<List<Ingredient>> SOURCES = IngredientComponent.INGREDIENT.asList().inputKey("sources");
+    RecipeKey<List<SizedIngredient>> SOURCES = SizedIngredientComponent.NESTED.asList().inputKey("sources");
     RecipeKey<Ingredient> TARGET = IngredientComponent.INGREDIENT.inputKey("target");
     RecipeKey<SizedFluidIngredient> SIZED_FLUID = SizedFluidIngredientComponent.NESTED.inputKey("fluid");
     RecipeKey<List<Ingredient>> INGREDIENTS = IngredientComponent.INGREDIENT.asList().inputKey("ingredients");
