@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.3.3] - 2024-09-01
+### :bug: Bug Fixes
+- [`2de02a1`](https://github.com/klikli-dev/theurgy-kubejs/commit/2de02a188c6846b0b1a05f420b228ca77fdb8336) - update sources to be a sized ingredient to match theurgy changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :wrench: Chores
+- [`c2cfa81`](https://github.com/klikli-dev/theurgy-kubejs/commit/c2cfa81f2582d81563081d15bf245bd7753c300e) - update dependencies *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`e9df5f4`](https://github.com/klikli-dev/theurgy-kubejs/commit/e9df5f409591b53fa8decbbda00678fcc06b51b5) - drop dual version support *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21-1.3.2] - 2024-08-30
 ### :bug: Bug Fixes
 - [`75178cf`](https://github.com/klikli-dev/theurgy-kubejs/commit/75178cf4d0bf2fb2962b886736cf18cd7313abc8) - github tag version not used in jar versioning *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -63,3 +72,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.3.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21-1.2.0...release/v1.21-1.3.0
 [release/v1.21-1.3.1]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21-1.3.0...release/v1.21-1.3.1
 [release/v1.21-1.3.2]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21-1.3.1...release/v1.21-1.3.2
+[release/v1.21.1-1.3.3]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1.0.0.0...release/v1.21.1-1.3.3
