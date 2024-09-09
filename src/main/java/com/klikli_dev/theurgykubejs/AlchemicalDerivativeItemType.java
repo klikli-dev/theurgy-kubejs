@@ -39,7 +39,7 @@ public abstract class AlchemicalDerivativeItemType extends ItemBuilder {
         this.provideDerivativeInformationAsTooltipParam = true;
         this.provideDerivativeInformationAsNameParam = true;
 
-        this.parentModel("minecraft:builtin/entity");
+        this.parentModel(ResourceLocation.fromNamespaceAndPath("minecraft", "builtin/entity"));
     }
 
     protected Item.Properties decorateWithSource(Item.Properties properties) {
