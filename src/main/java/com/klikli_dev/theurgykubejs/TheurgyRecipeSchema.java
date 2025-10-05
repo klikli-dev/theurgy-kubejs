@@ -19,7 +19,7 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import java.util.List;
 
 public interface TheurgyRecipeSchema {
-    RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.NESTED.inputKey("ingredient");
+    RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.SIZED_INGREDIENT.instance().inputKey("ingredient");
     RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.NESTED.inputKey("evaporant");
     RecipeKey<Ingredient> SOLUTE = IngredientComponent.INGREDIENT.inputKey("solute").defaultOptional();
     RecipeKey<Ingredient> INGREDIENT = IngredientComponent.INGREDIENT.inputKey("ingredient");
@@ -27,11 +27,11 @@ public interface TheurgyRecipeSchema {
     RecipeKey<Ingredient> MERCURY = IngredientComponent.INGREDIENT.inputKey("mercury");
     RecipeKey<Ingredient> SALT = IngredientComponent.INGREDIENT.inputKey("salt");
     RecipeKey<Ingredient> SULFUR = IngredientComponent.INGREDIENT.inputKey("sulfur");
-    RecipeKey<List<SizedIngredient>> SOURCES = SizedIngredientComponent.NESTED.asList().inputKey("sources");
+    RecipeKey<List<SizedIngredient>> SOURCES = SizedIngredientComponent.SIZED_INGREDIENT.instance().asList().inputKey("sources");
     RecipeKey<Ingredient> TARGET = IngredientComponent.INGREDIENT.inputKey("target");
     RecipeKey<SizedFluidIngredient> SIZED_FLUID = SizedFluidIngredientComponent.NESTED.inputKey("fluid");
-    RecipeKey<List<Ingredient>> INGREDIENTS = IngredientComponent.INGREDIENT.asList().inputKey("ingredients");
-    RecipeKey<List<SizedIngredient>> SIZED_INGREDIENTS = SizedIngredientComponent.NESTED.asList().inputKey("ingredients");
+    RecipeKey<List<Ingredient>> INGREDIENTS = IngredientComponent.INGREDIENT.instance().asList().inputKey("ingredients");
+    RecipeKey<List<SizedIngredient>> SIZED_INGREDIENTS = SizedIngredientComponent.SIZED_INGREDIENT.instance().asList().inputKey("ingredients");
 
     RecipeKey<RecipeResult> RECIPE_RESULT = RecipeResultComponent.RECIPE_RESULT.outputKey("result");
     RecipeKey<ItemStack> ITEM_STACK_RESULT = ItemStackComponent.ITEM_STACK.outputKey("result");

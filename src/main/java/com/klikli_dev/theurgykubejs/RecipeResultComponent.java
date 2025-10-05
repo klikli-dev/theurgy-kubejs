@@ -5,18 +5,24 @@
 package com.klikli_dev.theurgykubejs;
 
 import com.google.gson.JsonObject;
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
-import dev.latvian.mods.kubejs.recipe.KubeRecipe;
+import dev.latvian.mods.kubejs.recipe.RecipeScriptContext;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
-import dev.latvian.mods.rhino.Context;
+import dev.latvian.mods.kubejs.recipe.component.RecipeComponentType;
 import dev.latvian.mods.rhino.type.TypeInfo;
 
-public record RecipeResultComponent(String name, Codec<RecipeResult> codec) implements RecipeComponent<RecipeResult> {
-    public static final RecipeComponent<RecipeResult> RECIPE_RESULT = new RecipeResultComponent("theurgy:recipe_result", RecipeResult.CODEC);
+public record RecipeResultComponent(Codec<RecipeResult> codec) implements RecipeComponent<RecipeResult> {
+    public static final RecipeComponentType<RecipeResult> RECIPE_RESULT = RecipeComponentType.unit(Theurgy.loc("recipe_result"), new RecipeResultComponent(RecipeResult.CODEC));
 
-    public static final TypeInfo TYPE_INFO = TypeInfo.of(RecipeResultComponent.class);
+    public static final TypeInfo TYPE_INFO = TypeInfo.of(RecipeResult.class);
+
+    @Override
+    public RecipeComponentType<?> type() {
+        return RECIPE_RESULT;
+    }
 
     @Override
     public TypeInfo typeInfo() {
@@ -25,11 +31,11 @@ public record RecipeResultComponent(String name, Codec<RecipeResult> codec) impl
 
     @Override
     public String toString() {
-        return this.name;
+        return type().toString();
     }
 
     @Override
-    public RecipeResult wrap(Context cx, KubeRecipe recipe, Object from) {
+    public RecipeResult wrap(RecipeScriptContext cx, Object from) {
         if (from instanceof RecipeResult k) {
             return k;
         }
@@ -38,7 +44,6 @@ public record RecipeResultComponent(String name, Codec<RecipeResult> codec) impl
             return this.codec.decode(JsonOps.INSTANCE, json).result().orElseThrow().getFirst();
         }
 
-        return (RecipeResult) cx.jsToJava(from, this.typeInfo());
-
+        return (RecipeResult) cx.cx().jsToJava(from, this.typeInfo());
     }
 }
