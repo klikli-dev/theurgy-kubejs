@@ -4,11 +4,12 @@
 
 package com.klikli_dev.theurgykubejs.kubejs;
 
+import com.klikli_dev.theurgy.Theurgy;
 import com.klikli_dev.theurgy.content.recipe.result.RecipeResult;
 import com.klikli_dev.theurgy.registry.RecipeTypeRegistry;
 import com.klikli_dev.theurgykubejs.*;
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin;
-import dev.latvian.mods.kubejs.recipe.schema.RecipeComponentFactoryRegistry;
+import dev.latvian.mods.kubejs.recipe.component.RecipeComponentTypeRegistry;
 import dev.latvian.mods.kubejs.recipe.schema.RecipeSchemaRegistry;
 import dev.latvian.mods.kubejs.registry.BuilderTypeRegistry;
 import dev.latvian.mods.kubejs.script.BindingRegistry;
@@ -20,8 +21,8 @@ public class TheurgyKubeJSPlugin implements KubeJSPlugin {
     @Override
     public void registerBuilderTypes(BuilderTypeRegistry registry) {
         registry.of(Registries.ITEM, reg -> {
-            reg.add("theurgy:alchemical_sulfur", AlchemicalSulfurItemType.class, AlchemicalSulfurItemType::new);
-            reg.add("theurgy:alchemical_niter", AlchemicalNiterItemType.class, AlchemicalNiterItemType::new);
+            reg.add(Theurgy.loc("alchemical_sulfur"), AlchemicalSulfurItemType.class, AlchemicalSulfurItemType::new);
+            reg.add(Theurgy.loc("alchemical_niter"), AlchemicalNiterItemType.class, AlchemicalNiterItemType::new);
         });
     }
 
@@ -39,7 +40,7 @@ public class TheurgyKubeJSPlugin implements KubeJSPlugin {
     }
 
     @Override
-    public void registerRecipeComponents(RecipeComponentFactoryRegistry registry) {
+    public void registerRecipeComponents(RecipeComponentTypeRegistry registry) {
         registry.register(RecipeResultComponent.RECIPE_RESULT);
     }
 
