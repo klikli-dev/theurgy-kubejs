@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.5.0] - 2025-10-13
+### :sparkles: New Features
+- [`d50635a`](https://github.com/klikli-dev/theurgy-kubejs/commit/d50635af9d22d1b16ba789f4594be11fdfdfe298) - Update to KubeJS 7.2 *(PR [#7](https://github.com/klikli-dev/theurgy-kubejs/pull/7) by [@MaxNeedsSnacks](https://github.com/MaxNeedsSnacks))*
+
+### :wrench: Chores
+- [`732daaf`](https://github.com/klikli-dev/theurgy-kubejs/commit/732daafbed2bebedff1e3675b0a4d5fe81faa161) - update to latest theurgy *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`00141ad`](https://github.com/klikli-dev/theurgy-kubejs/commit/00141adafafd183d4072754d856ca8ad3993dda1) - add usage note for new theurgy feature *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.4.0] - 2024-09-09
 ### :sparkles: New Features
 - [`3004841`](https://github.com/klikli-dev/theurgy-kubejs/commit/30048419574dd6aec0c6e8700914dc3a8d308968) - update to latest kubejs breaking changes *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -82,3 +91,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21-1.3.2]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21-1.3.1...release/v1.21-1.3.2
 [release/v1.21.1-1.3.3]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1.0.0.0...release/v1.21.1-1.3.3
 [release/v1.21.1-1.4.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.3.3...release/v1.21.1-1.4.0
+[release/v1.21.1-1.5.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.4.0...release/v1.21.1-1.5.0
