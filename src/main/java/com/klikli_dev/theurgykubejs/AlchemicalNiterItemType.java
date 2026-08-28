@@ -7,23 +7,20 @@ package com.klikli_dev.theurgykubejs;
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.TheurgyConstants;
 import com.klikli_dev.theurgy.content.item.niter.AlchemicalNiterItem;
-import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import dev.latvian.mods.kubejs.client.LangKubeEvent;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
 
 public class AlchemicalNiterItemType extends AlchemicalDerivativeItemType {
 
-    public AlchemicalNiterItemType(ResourceLocation rl) {
-        super(rl);
+    public AlchemicalNiterItemType(Identifier id) {
+        super(id);
 
-        this.jarIcon(ResourceLocation.fromNamespaceAndPath("theurgy", "empty_ceramic_jar_icon"));
+        this.jarIcon(Identifier.fromNamespaceAndPath("theurgy", "empty_ceramic_jar_icon"));
     }
 
     @Override
@@ -34,21 +31,16 @@ public class AlchemicalNiterItemType extends AlchemicalDerivativeItemType {
         );
 
         item.useCustomSourceName(true)
-                .autoTooltip(this.provideDerivativeInformationAsTooltipParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
-                .autoName(this.provideDerivativeInformationAsNameParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
-                .withJarIcon(Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.jarIcon))));
-
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            TooltipHandler.registerTooltipDataProvider(item, item::getTooltipData);
-            TheurgyKubeJS.Client.registerAlchemicalDerivativeItem(item);
-        }
+                .autoTooltip(this.provideDerivativeInformationAsTooltipParam, false)
+                .autoName(this.provideDerivativeInformationAsNameParam, false)
+                .withJarIcon(Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.jarIcon).orElseThrow())));
 
         return item;
     }
 
 
     @Info("Sets the item that will be used as icon for the niter. Ideally a dummy item with a fitting icon should be created for this purpose. Normal KubeJS items can be used for this.")
-    public ItemBuilder niterIcon(ResourceLocation id) {
+    public ItemBuilder niterIcon(Identifier id) {
         return this.sourceItem(id);
     }
 

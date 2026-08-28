@@ -6,36 +6,33 @@ package com.klikli_dev.theurgykubejs;
 
 import com.google.common.base.Suppliers;
 import com.klikli_dev.theurgy.TheurgyConstants;
-import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurItem;
 import com.klikli_dev.theurgy.content.item.sulfur.AlchemicalSulfurType;
 import com.klikli_dev.theurgy.registry.DataComponentRegistry;
-import com.klikli_dev.theurgy.tooltips.TooltipHandler;
 import dev.latvian.mods.kubejs.client.LangKubeEvent;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
 
 public class AlchemicalSulfurItemType extends AlchemicalDerivativeItemType {
 
     public transient AlchemicalSulfurType sulfurType;
 
-    public AlchemicalSulfurItemType(ResourceLocation rl) {
-        super(rl);
+    public AlchemicalSulfurItemType(Identifier id) {
+        super(id);
     }
 
     protected Item.Properties decorateWithSource(Item.Properties properties) {
         if (this.sourceItem != null) {
+            var item = BuiltInRegistries.ITEM.get(this.sourceItem).orElseThrow().value();
             properties.component(
                     DataComponentRegistry.SOURCE_ITEM,
-                    BuiltInRegistries.ITEM.getHolder(this.sourceItem).get()
+                    BuiltInRegistries.ITEM.wrapAsHolder(item)
             );
         } else if (this.sourceTag != null) {
             properties.component(
@@ -53,16 +50,11 @@ public class AlchemicalSulfurItemType extends AlchemicalDerivativeItemType {
         );
 
         item.useCustomSourceName(true)
-                .autoTooltip(this.provideDerivativeInformationAsTooltipParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
-                .autoName(this.provideDerivativeInformationAsNameParam, false) //lang gen is always false because theurgy datagen never runs, it is done here in this kubejs adapter class
-                .withJarIcon(Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.jarIcon))))
+                .autoTooltip(this.provideDerivativeInformationAsTooltipParam, false)
+                .autoName(this.provideDerivativeInformationAsNameParam, false)
+                .withJarIcon(Suppliers.memoize(() -> new ItemStack(BuiltInRegistries.ITEM.get(this.jarIcon).orElseThrow())))
                 .tier(this.derivativeTier);
         item.type(this.sulfurType);
-
-        if (FMLEnvironment.dist == Dist.CLIENT) {
-            TooltipHandler.registerTooltipDataProvider(item, item::getTooltipData);
-            TheurgyKubeJS.Client.registerAlchemicalDerivativeItem(item);
-        }
 
         return item;
     }

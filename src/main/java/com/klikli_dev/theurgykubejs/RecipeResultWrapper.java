@@ -14,9 +14,9 @@ import dev.latvian.mods.kubejs.typings.Info;
 import dev.latvian.mods.kubejs.util.RegistryAccessContainer;
 import dev.latvian.mods.rhino.Context;
 import dev.latvian.mods.rhino.Wrapper;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.ItemStack;
@@ -42,14 +42,11 @@ public interface RecipeResultWrapper {
             o = w.unwrap();
         }
 
-        if (o == null || o == ItemStack.EMPTY || o == Items.AIR || o == Ingredient.EMPTY) {
+        if (o == null || o == ItemStack.EMPTY || o == Items.AIR) {
             return RecipeResult.of(ItemStack.EMPTY);
         } else if (o instanceof TagKey<?> tag) {
             return RecipeResult.of(ItemTags.create(tag.location()));
         }
-//        else if (o instanceof JsonElement json) {
-//            return ofJson(registries, json);
-//        }
         else if (o instanceof CharSequence) {
             return ofString(cx, o.toString());
         }
@@ -89,7 +86,7 @@ public interface RecipeResultWrapper {
             }
             case '#' -> {
                 reader.skip();
-                yield RecipeResult.of(ItemTags.create(ResourceLocation.read(reader)));
+                yield RecipeResult.of(ItemTags.create(Identifier.tryParse(reader.readUnquotedString())));
             }
             case '@' -> {
                 reader.skip();
@@ -106,17 +103,18 @@ public interface RecipeResultWrapper {
                 throw new UnsupportedOperationException("Compound recipe results are not supported");
             }
             default -> {
-                var itemId = ResourceLocation.read(reader);
-                var item = BuiltInRegistries.ITEM.get(itemId);
+                var itemId = Identifier.tryParse(reader.readUnquotedString());
+                var item = BuiltInRegistries.ITEM.get(itemId).orElseThrow().value();
 
                 var next = reader.canRead() ? reader.peek() : 0;
 
                 if (next == '[' || next == '{') {
-                    var components = DataComponentWrapper.readPredicate(RegistryAccessContainer.of(cx).nbt(), reader);
+                    DataComponentMap components = DataComponentWrapper.readMap(RegistryAccessContainer.of(cx).nbt(), reader);
 
-                    if (components != DataComponentPredicate.EMPTY) {
-                        //noinspection deprecation
-                        yield RecipeResult.of(new ItemStack(item.builtInRegistryHolder(), 1, components.asPatch()));
+                    if (!components.isEmpty()) {
+                        var stack = new ItemStack(item);
+                        stack.applyComponents(components);
+                        yield RecipeResult.of(stack);
                     }
                 }
 

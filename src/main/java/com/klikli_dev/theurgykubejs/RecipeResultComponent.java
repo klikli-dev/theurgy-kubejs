@@ -13,14 +13,15 @@ import dev.latvian.mods.kubejs.recipe.RecipeScriptContext;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponent;
 import dev.latvian.mods.kubejs.recipe.component.RecipeComponentType;
 import dev.latvian.mods.rhino.type.TypeInfo;
+import net.minecraft.resources.ResourceKey;
 
 public record RecipeResultComponent(Codec<RecipeResult> codec) implements RecipeComponent<RecipeResult> {
-    public static final RecipeComponentType<RecipeResult> RECIPE_RESULT = RecipeComponentType.unit(Theurgy.loc("recipe_result"), new RecipeResultComponent(RecipeResult.CODEC));
+    public static final ResourceKey<RecipeComponentType<?>> RECIPE_RESULT = RecipeComponentType.key(Theurgy.loc("recipe_result"));
 
     public static final TypeInfo TYPE_INFO = TypeInfo.of(RecipeResult.class);
 
     @Override
-    public RecipeComponentType<?> type() {
+    public ResourceKey<RecipeComponentType<?>> type() {
         return RECIPE_RESULT;
     }
 

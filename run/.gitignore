@@ -1,0 +1,7 @@
+# Ignore everything in run/
+*
+
+# Except kubejs example scripts
+!kubejs/
+!kubejs/**/
+!kubejs/**/*.js

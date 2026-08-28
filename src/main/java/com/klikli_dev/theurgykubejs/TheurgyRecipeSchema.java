@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2024 klikli_dev
+// SPDX-FileCopyrightText: 2024 klikli-dev
 //
 // SPDX-License-Identifier: MIT
 
@@ -19,21 +19,23 @@ import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 import java.util.List;
 
 public interface TheurgyRecipeSchema {
-    RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.SIZED_INGREDIENT.instance().inputKey("ingredient");
-    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.NESTED.inputKey("evaporant");
+    RecipeResultComponent RECIPE_RESULT_COMPONENT = new RecipeResultComponent(RecipeResult.CODEC);
+
+    RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.SIZED_INGREDIENT.inputKey("ingredient");
+    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("evaporant");
     RecipeKey<Ingredient> SOLUTE = IngredientComponent.INGREDIENT.inputKey("solute").defaultOptional();
     RecipeKey<Ingredient> INGREDIENT = IngredientComponent.INGREDIENT.inputKey("ingredient");
-    RecipeKey<SizedFluidIngredient> SOLVENT = SizedFluidIngredientComponent.NESTED.inputKey("solvent");
+    RecipeKey<SizedFluidIngredient> SOLVENT = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("solvent");
     RecipeKey<Ingredient> MERCURY = IngredientComponent.INGREDIENT.inputKey("mercury");
     RecipeKey<Ingredient> SALT = IngredientComponent.INGREDIENT.inputKey("salt");
     RecipeKey<Ingredient> SULFUR = IngredientComponent.INGREDIENT.inputKey("sulfur");
-    RecipeKey<List<SizedIngredient>> SOURCES = SizedIngredientComponent.SIZED_INGREDIENT.instance().asList().inputKey("sources");
+    RecipeKey<List<SizedIngredient>> SOURCES = SizedIngredientComponent.SIZED_INGREDIENT.asList().inputKey("sources");
     RecipeKey<Ingredient> TARGET = IngredientComponent.INGREDIENT.inputKey("target");
-    RecipeKey<SizedFluidIngredient> SIZED_FLUID = SizedFluidIngredientComponent.NESTED.inputKey("fluid");
-    RecipeKey<List<Ingredient>> INGREDIENTS = IngredientComponent.INGREDIENT.instance().asList().inputKey("ingredients");
-    RecipeKey<List<SizedIngredient>> SIZED_INGREDIENTS = SizedIngredientComponent.SIZED_INGREDIENT.instance().asList().inputKey("ingredients");
+    RecipeKey<SizedFluidIngredient> SIZED_FLUID = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("fluid");
+    RecipeKey<List<Ingredient>> INGREDIENTS = IngredientComponent.INGREDIENT.asList().inputKey("ingredients");
+    RecipeKey<List<SizedIngredient>> SIZED_INGREDIENTS = SizedIngredientComponent.SIZED_INGREDIENT.asList().inputKey("ingredients");
 
-    RecipeKey<RecipeResult> RECIPE_RESULT = RecipeResultComponent.RECIPE_RESULT.outputKey("result");
+    RecipeKey<RecipeResult> RECIPE_RESULT = RECIPE_RESULT_COMPONENT.outputKey("result");
     RecipeKey<ItemStack> ITEM_STACK_RESULT = ItemStackComponent.ITEM_STACK.outputKey("result");
     RecipeKey<FluidStack> FLUID_STACK_RESULT = FluidStackComponent.FLUID_STACK.outputKey("result");
 

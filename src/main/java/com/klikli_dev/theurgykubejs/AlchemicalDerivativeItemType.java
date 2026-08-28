@@ -4,21 +4,23 @@
 
 package com.klikli_dev.theurgykubejs;
 
+import com.google.gson.JsonObject;
 import com.klikli_dev.theurgy.content.item.derivative.AlchemicalDerivativeTier;
-import com.klikli_dev.theurgy.registry.DataComponentRegistry;
 import dev.latvian.mods.kubejs.client.LangKubeEvent;
+import dev.latvian.mods.kubejs.generator.KubeAssetGenerator;
 import dev.latvian.mods.kubejs.item.ItemBuilder;
 import dev.latvian.mods.kubejs.typings.Info;
+import dev.latvian.mods.kubejs.util.ID;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 
 public abstract class AlchemicalDerivativeItemType extends ItemBuilder {
 
-    public transient ResourceLocation sourceItem;
-    public transient ResourceLocation sourceTag;
-    public transient ResourceLocation jarIcon;
+    public transient Identifier sourceItem;
+    public transient Identifier sourceTag;
+    public transient Identifier jarIcon;
     public transient String sourceName;
     public transient AlchemicalDerivativeTier derivativeTier;
 
@@ -27,30 +29,50 @@ public abstract class AlchemicalDerivativeItemType extends ItemBuilder {
     public transient boolean provideDerivativeInformationAsTooltipParam;
     public transient boolean provideDerivativeInformationAsNameParam;
 
-    public AlchemicalDerivativeItemType(ResourceLocation rl) {
-        super(rl);
+    public AlchemicalDerivativeItemType(Identifier id) {
+        super(id);
 
-        this.sourceItem = ResourceLocation.fromNamespaceAndPath("minecraft", "stone");
-        this.jarIcon = ResourceLocation.fromNamespaceAndPath("theurgy", "empty_jar_icon");
+        this.sourceItem = Identifier.fromNamespaceAndPath("minecraft", "stone");
+        this.jarIcon = Identifier.fromNamespaceAndPath("theurgy", "empty_jar_icon");
         this.sourceName = "";
         this.derivativeTier = AlchemicalDerivativeTier.ABUNDANT;
         this.generateTooltipLangEntry = true;
         this.generateNameLangEntry = true;
         this.provideDerivativeInformationAsTooltipParam = true;
         this.provideDerivativeInformationAsNameParam = true;
+    }
 
-        this.parentModel(ResourceLocation.fromNamespaceAndPath("minecraft", "builtin/entity"));
+    @Override
+    public void generateItemModels(KubeAssetGenerator generator) {
+        TheurgyKubeJS.LOGGER.info("Generating item model for {}", this.id);
+
+        JsonObject model = new JsonObject();
+        model.addProperty("type", "minecraft:special");
+        model.addProperty("base", "theurgy:item/derivative_base");
+
+        JsonObject specialModel = new JsonObject();
+        specialModel.addProperty("type", "theurgy:alchemical_derivative");
+        model.add("model", specialModel);
+
+        JsonObject itemDef = new JsonObject();
+        itemDef.add("model", model);
+
+        // Write the item definition to assets/<ns>/items/<path>.json
+        var itemDefPath = this.id.withPath(ID.ITEM_DEFINITION);
+        TheurgyKubeJS.LOGGER.info("Writing item definition to {}", itemDefPath);
+        generator.json(itemDefPath, itemDef);
     }
 
     protected Item.Properties decorateWithSource(Item.Properties properties) {
         if (this.sourceItem != null) {
+            var item = BuiltInRegistries.ITEM.get(this.sourceItem).orElseThrow().value();
             properties.component(
-                    DataComponentRegistry.SOURCE_ITEM,
-                    BuiltInRegistries.ITEM.getHolder(this.sourceItem).get()
+                    com.klikli_dev.theurgy.registry.DataComponentRegistry.SOURCE_ITEM,
+                    BuiltInRegistries.ITEM.wrapAsHolder(item)
             );
         } else if (this.sourceTag != null) {
             properties.component(
-                    DataComponentRegistry.SOURCE_TAG,
+                    com.klikli_dev.theurgy.registry.DataComponentRegistry.SOURCE_TAG,
                     ItemTags.create(this.sourceTag)
             );
         }
@@ -82,19 +104,19 @@ public abstract class AlchemicalDerivativeItemType extends ItemBuilder {
     }
 
     @Info("Sets the item that will be used as jar icon. This will be rendered as background behind the source item.")
-    public ItemBuilder jarIcon(ResourceLocation id) {
+    public ItemBuilder jarIcon(Identifier id) {
         this.jarIcon = id;
         return this;
     }
 
     @Info("Sets the item the derivative is made from. This will be used for texts, tooltips and icons. Note: Consider using sourceTag() instead.")
-    public ItemBuilder sourceItem(ResourceLocation id) {
+    public ItemBuilder sourceItem(Identifier id) {
         this.sourceItem = id;
         return this;
     }
 
     @Info("Sets the tag the derivative is made from. This will be used for texts, tooltips and icons.")
-    public ItemBuilder sourceTag(ResourceLocation id) {
+    public ItemBuilder sourceTag(Identifier id) {
         this.sourceTag = id;
         return this;
     }

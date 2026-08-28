@@ -41,7 +41,7 @@ public class TheurgyKubeJSPlugin implements KubeJSPlugin {
 
     @Override
     public void registerRecipeComponents(RecipeComponentTypeRegistry registry) {
-        registry.register(RecipeResultComponent.RECIPE_RESULT);
+        registry.unit(new RecipeResultComponent(RecipeResult.CODEC));
     }
 
     @Override
