@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v26.1.2-1.5.1] - 2026-08-28
+### :sparkles: New Features
+- [`887eb2a`](https://github.com/klikli-dev/theurgy-kubejs/commit/887eb2a609481f946f5cb7fb4d932d3574a14d55) - update to 26.1.2 *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`0633617`](https://github.com/klikli-dev/theurgy-kubejs/commit/06336177b04aae3e41b9823c8740e6ff1bc830cd) - update actions *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+### :bug: Bug Fixes
+- [`6bfda0b`](https://github.com/klikli-dev/theurgy-kubejs/commit/6bfda0beaccfa3c9f2736ad85815292b0c263964) - reuse compliance *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`6b920ce`](https://github.com/klikli-dev/theurgy-kubejs/commit/6b920cebee2310b75e9c37e0a53ecdc7e7d221ff) - glob pattern for reuse *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+- [`99c638a`](https://github.com/klikli-dev/theurgy-kubejs/commit/99c638a75b16e177e1d07036560d4f5805aad818) - workflow perms *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.5.1] - 2025-10-20
 ### :wrench: Chores
 - [`65732f8`](https://github.com/klikli-dev/theurgy-kubejs/commit/65732f881b8e873c5a6dd67ce939529214b9623a) - update to latest kubejs and recompile *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -98,3 +109,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.4.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.3.3...release/v1.21.1-1.4.0
 [release/v1.21.1-1.5.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.4.0...release/v1.21.1-1.5.0
 [release/v1.21.1-1.5.1]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.5.0...release/v1.21.1-1.5.1
+[release/v26.1.2-1.5.1]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v26.1.2-0.0.0...release/v26.1.2-1.5.1
