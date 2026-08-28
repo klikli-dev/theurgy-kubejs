@@ -38,7 +38,7 @@ SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = [".gitignore", "./run/.gitignore"]
+path = [".gitignore", "run/.gitignore"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2022 klikli-dev"
 SPDX-License-Identifier = "CC0-1.0"
