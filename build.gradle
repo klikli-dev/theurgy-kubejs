@@ -77,6 +77,9 @@ dependencies {
         exclude group: 'dev.latvian.mods', module: 'better-advanced-tooltips'
     }
 
+    compileOnly("dev.latvian.mods:better-advanced-tooltips:2601.1.0-build.9")
+    localRuntime("dev.latvian.mods:better-advanced-tooltips:2601.1.0-build.9")
+
     localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
 

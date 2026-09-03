@@ -63,7 +63,7 @@ public interface RecipeResultWrapper {
         } else {
             try {
                 return read(cx, new StringReader(s));
-            } catch (CommandSyntaxException e) {
+            } catch (CommandSyntaxException | RuntimeException e) {
                 KubeJS.LOGGER.error("Failed to read recipe result from '" + s + "': " + e);
                 return RecipeResult.of(ItemStack.EMPTY);
             }
