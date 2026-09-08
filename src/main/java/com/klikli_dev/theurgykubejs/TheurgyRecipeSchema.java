@@ -22,7 +22,7 @@ public interface TheurgyRecipeSchema {
     RecipeResultComponent RECIPE_RESULT_COMPONENT = new RecipeResultComponent(RecipeResult.CODEC);
 
     RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.SIZED_INGREDIENT.inputKey("ingredient");
-    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("evaporant");
+    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("evaporant").defaultOptional();
     RecipeKey<Ingredient> SOLUTE = IngredientComponent.INGREDIENT.inputKey("solute").defaultOptional();
     RecipeKey<Ingredient> INGREDIENT = IngredientComponent.INGREDIENT.inputKey("ingredient");
     RecipeKey<SizedFluidIngredient> SOLVENT = SizedFluidIngredientComponent.SIZED_FLUID_INGREDIENT.inputKey("solvent");
