@@ -20,7 +20,7 @@ import java.util.List;
 
 public interface TheurgyRecipeSchema {
     RecipeKey<SizedIngredient> SIZED_INGREDIENT = SizedIngredientComponent.SIZED_INGREDIENT.instance().inputKey("ingredient");
-    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.NESTED.inputKey("evaporant");
+    RecipeKey<SizedFluidIngredient> EVAPORANT = SizedFluidIngredientComponent.NESTED.inputKey("evaporant").defaultOptional();
     RecipeKey<Ingredient> SOLUTE = IngredientComponent.INGREDIENT.inputKey("solute").defaultOptional();
     RecipeKey<Ingredient> INGREDIENT = IngredientComponent.INGREDIENT.inputKey("ingredient");
     RecipeKey<SizedFluidIngredient> SOLVENT = SizedFluidIngredientComponent.NESTED.inputKey("solvent");
