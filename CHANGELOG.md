@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [release/v1.21.1-1.6.0] - 2026-09-08
+### :sparkles: New Features
+- [`08e7d63`](https://github.com/klikli-dev/theurgy-kubejs/commit/08e7d637cc5c5d5f60386d1b7e6421b2fc0a70c9) - make evaporant on optional to match theurgy recipe codec *(commit by [@klikli-dev](https://github.com/klikli-dev))*
+
+
 ## [release/v1.21.1-1.5.1] - 2025-10-20
 ### :wrench: Chores
 - [`65732f8`](https://github.com/klikli-dev/theurgy-kubejs/commit/65732f881b8e873c5a6dd67ce939529214b9623a) - update to latest kubejs and recompile *(commit by [@klikli-dev](https://github.com/klikli-dev))*
@@ -98,3 +103,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [release/v1.21.1-1.4.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.3.3...release/v1.21.1-1.4.0
 [release/v1.21.1-1.5.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.4.0...release/v1.21.1-1.5.0
 [release/v1.21.1-1.5.1]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.5.0...release/v1.21.1-1.5.1
+[release/v1.21.1-1.6.0]: https://github.com/klikli-dev/theurgy-kubejs/compare/release/v1.21.1-1.5.1...release/v1.21.1-1.6.0
